@@ -1,0 +1,131 @@
+<div class="modal fade" [id]="idModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 *ngIf="operation == 'DD'" class="modal-title" id="exampleModalLabel">Informacion Mascota</h5>
+        <h5 *ngIf="operation == 'U'" class="modal-title" id="exampleModalLabel">Actualizar informacion Mascota</h5>
+        <h5 *ngIf="operation == 'D'" class="modal-title" id="exampleModalLabel">Eliminar informacion Mascota</h5>
+        <h5 *ngIf="operation == 'C'" class="modal-title" id="exampleModalLabel">Crear Nueva Mascota</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="operation == 'DD'">
+          <p class="text-bold">Nombre Mascota: <span>{{mascota.nombreMascota}}</span></p>
+          <p class="text-bold">Especie: <span>{{getEspecieValue(mascota.especie)}}</span></p>
+          <p class="text-bold">Raza: <span>{{getRazaValue(mascota.raza)}}</span></p>
+          <p class="text-bold">Fecha de nacimiento: <span>{{mascota.fechaDeNacimiento}}</span></p>
+          <p class="text-bold">Propietario: <span>{{mascota.idPropietario}}</span></p>
+        </div>
+
+        <!-- Parte para la actualizacion de un nuevo recurso-->
+        <div *ngIf="operation == 'U'">
+          <div class="form-floating mb-3">
+            <input type="hidden" class="form-control" [(ngModel)]="mascotaToUpdate.idMascotaId"
+              placeholder="name@example.com">
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" [(ngModel)]="mascotaToUpdate.nombreMascota" id="floatingInput"
+              placeholder="name@example.com">
+            <label for="floatingInput">Nombre Mascota</label>
+          </div>
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+              [(ngModel)]="mascotaToUpdate.especie">
+              <option (select)="true" [value]="mascotaToUpdate.especie">{{getEspecieValue(mascotaToUpdate.especie)}}
+              </option>
+              <option *ngFor="let select of selectEspecie; let i = index" [value]="i +1">
+                {{Especie[i + 1]}}
+              </option>
+            </select>
+            <label for="floatingSelect">Especie</label>
+          </div>
+
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+              [(ngModel)]="mascotaToUpdate.raza">
+              <option (select)="true" [value]="mascotaToUpdate.especie">{{getRazaValue(mascotaToUpdate.raza)}}</option>
+              <option *ngFor="let select of selectRaza; let i = index" [value]="i +1">
+                {{Raza[i + 1]}}
+              </option>
+            </select>
+            <label for="floatingSelect">Raza</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="floatingInput" placeholder="Fecha de nacimiento"
+              [(ngModel)]="mascotaToUpdate.fechaDeNacimiento">
+            <label for="floatingInput">Fecha de Nacimiento</label>
+          </div>
+
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+              [(ngModel)]="mascotaToUpdate.idPropietario">
+              <option (select)="true" [value]="mascotaToUpdate.idPropietario">
+                {{getPropietarioValue(mascotaToUpdate.idPropietario)}}
+              </option>
+              <option *ngFor="let select of selectPropietario; let i = index" [value]="i +1">
+                {{Propietario[i + 1]}}
+              </option>
+            </select>
+            <label for="floatingSelect">Propietario</label>
+          </div>
+        </div>
+        <!---------------- fin para la actualizacion de un nuevo recurso-->
+        <!-- Parte para la creacion de un nuevo recurso-->
+        <div *ngIf="operation == 'C'">
+
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" [(ngModel)]="mascotaToCreate.nombreMascota"
+              required placeholder="Nombre Mascota" required>
+            <label for="floatingInput">Nombre Mascota</label>
+          </div>
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example "
+              [(ngModel)]="mascotaToCreate.especie">
+              <option *ngFor="let select of selectEspecie; let i = index" [value]="i +1">
+                {{Especie[i + 1]}}
+              </option>
+            </select>
+            <label for="floatingSelect">Especie</label>
+          </div>
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+              [(ngModel)]="mascotaToCreate.raza">
+              <option *ngFor="let select of selectRaza; let i = index" [value]="i +1">
+                {{Raza[i + 1]}}
+              </option>
+            </select>
+            <label for="floatingSelect">Raza</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="date" class="form-control" id="floatingInput" placeholder="Fecha de nacimiento"
+              [(ngModel)]="mascotaToCreate.fechaDeNacimiento">
+            <label for="floatingInput">Fecha de Nacimiento</label>
+          </div>
+          <div class="form-floating">
+            <select class="form-select" id="floatingSelect" aria-label="Floating label select example"
+              [(ngModel)]="mascotaToCreate.idPropietario">
+              <option *ngFor="let select of selectPropietario; let i = index" [value]="i +1">
+                {{Propietario[i + 1]}}
+              </option>
+            </select>
+            <label for="floatingSelect">Propietario</label>
+          </div>
+        </div>
+        <!------------------ fin Parte para la creacion de un nuevo recurso--------------->
+        <div *ngIf="operation == 'D'">
+          Desea Eliminar a la mascota {{mascota.nombreMascota}} ?
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" #closebutton data-bs-dismiss="modal">Close</button>
+        <button *ngIf="operation == 'D'" type="button" (click)="deleteMascota(mascota.idMascotaId)"
+          class="btn btn-danger">Si, eliminar</button>
+        <button *ngIf="operation == 'C'" type="button" (click)="crearMascota(mascotaToCreate)"
+          class="btn btn-primary">Crear</button>
+        <button *ngIf="operation == 'U'" type="button" (click)="updateMascota(mascotaToUpdate)"
+          class="btn btn-success">Actualizar</button>
+
+      </div>
+    </div>
+  </div>
+</div>

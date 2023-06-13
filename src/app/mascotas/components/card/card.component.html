@@ -1,0 +1,22 @@
+<div class="card" style="width: 18rem;">
+  <img
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+    class="card-img-top" alt="Lodo" width="50" height="50">
+  <div class="card-header text-center">Mascota: {{mascota.idMascotaId}}-{{mascota.nombreMascota}}</div>
+  <div class="card-body">
+    <p>Acciones: </p>
+    <button type="button" class="btn btn-outline-primary " data-bs-toggle="modal" (click)="setOperationSelected('DD')"
+      [attr.data-bs-target]="'#' + mascota.idMascotaId">
+      <i class="bi bi-three-dots-vertical"></i>
+    </button>
+    <button type="button" class="btn btn-outline-success " data-bs-toggle="modal" (click)="setOperationSelected('U')"
+      [attr.data-bs-target]="'#' + mascota.idMascotaId">
+      <i class="bi bi-pencil"></i>
+    </button>
+    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" (click)="setOperationSelected('D')"
+      [attr.data-bs-target]="'#' + mascota.idMascotaId">
+      <i class="bi bi-trash"></i>
+    </button>
+    <app-modal [idModal]="mascota.idMascotaId" [mascota]="mascota" [operation]="operationSelected"></app-modal>
+  </div>
+</div>
